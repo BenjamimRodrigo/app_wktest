@@ -1,6 +1,6 @@
 class AtributosFisicos {
   double? altura;
-  int? peso;
+  double? peso;
   String? sexo;
   String? tipoSanguineo;
 
