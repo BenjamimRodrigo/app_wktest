@@ -36,7 +36,7 @@ class HomePage extends GetView<HomeController> {
                   suffixIcon: Obx(
                     () => controller.isFocused
                         ? InkWell(
-                            child: Icon(Icons.close, color: Colors.red[300]),
+                            child: Icon(Icons.close, color: SECONDARY_COLOR),
                             onTap: () {
                               FocusScope.of(context).unfocus();
                               controller.textController.clear();
@@ -98,12 +98,12 @@ class HomePage extends GetView<HomeController> {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CircularProgressIndicator(color: Colors.blue),
+                        CircularProgressIndicator(color: SECONDARY_COLOR),
                         Text("Aguarde...")
                       ],
                     );
                   }
-                  if (controller.pessoas.isEmpty) {
+                  if (controller.pessoas.isEmpty && controller.textController.text.isEmpty) {
                     return Center(
                       child: ElevatedButton(
                         onPressed: () => controller.enviarDadosLocais(),
@@ -119,19 +119,21 @@ class HomePage extends GetView<HomeController> {
                       if (controller.pessoas.length == index) {
                         return Obx(() {
                           if (controller.loadMore) {
-                            return ElevatedButton(
-                              onPressed: controller.isLoadingMore
-                                  ? null
-                                  : () => controller.pesquisar(
-                                      pesquisa: controller.textController.text,
-                                      page: ++controller.currentPage),
-                              child: controller.isLoadingMore
-                                  ? SizedBox(
-                                      height: 18,
-                                      width: 18,
-                                      child: CircularProgressIndicator(
-                                          color: Colors.blue))
-                                  : Text("Carregar mais"),
+                            return Center(
+                              child: ElevatedButton(
+                                onPressed: controller.isLoadingMore
+                                    ? null
+                                    : () => controller.pesquisar(
+                                        pesquisa: controller.textController.text,
+                                        page: ++controller.currentPage),
+                                child: controller.isLoadingMore
+                                    ? SizedBox(
+                                        height: 18,
+                                        width: 18,
+                                        child: CircularProgressIndicator(
+                                            color: SECONDARY_COLOR))
+                                    : Text("Carregar mais", style: TextStyle(color: SECONDARY_COLOR, fontSize: 16),),
+                              ),
                             );
                           }
                           return Center(
@@ -179,12 +181,12 @@ class HomePage extends GetView<HomeController> {
           ),
           subtitle: Row(
             children: [
-              Icon(Icons.bloodtype, size: 14, color: Colors.redAccent),
+              Icon(Icons.bloodtype, size: 14, color: SECONDARY_COLOR),
               Text(
                 pessoa.atributosFisicos!.tipoSanguineo!,
                 style: TextStyle(
                     fontSize: 16,
-                    color: Colors.redAccent,
+                    color: SECONDARY_COLOR,
                     fontFamily: 'Nunito'),
               ),
             ],
