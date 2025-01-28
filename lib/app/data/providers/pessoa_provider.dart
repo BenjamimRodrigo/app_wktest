@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:app_wktest/app/data/dtos/result_list_dto.dart';
 import 'package:app_wktest/app/data/models/pessoa_model.dart';
 import 'package:app_wktest/app/data/providers/api_provider.dart';
+import 'package:get/get_connect/http/src/exceptions/exceptions.dart';
 
 class PessoaProvider extends ApiConnect {
   Future<ResponsePessoaDTO> search(filter, page) async {
@@ -20,21 +21,17 @@ class PessoaProvider extends ApiConnect {
         );
         return results;
       } else if (response.statusCode == 401) {
-        print(response.statusText);
-        return Future.error("UNAUTHORIZED_USER");
+        throw UnauthorizedException();
       } else {
-        print(response.statusText);
-        return Future.error("SERVER_ERROR");
+        throw HttpException(
+            "Erro desconhecido! Code: ${response.statusCode}");
       }
     } on SocketException catch (e) {
-      print(e.toString());
-      return Future.error("TIMEOUT_ERROR");
+      throw TimeoutException("Tempo de conexão excedido! ${e.message}");
     } on TimeoutException catch (e) {
-      print(e.toString());
-      return Future.error("TIMEOUT_ERROR");
+      throw TimeoutException("Tempo de conexão excedido! ${e.message}");
     } catch (err) {
-      print(err.toString());
-      return Future.error("CONNECTION_ERROR");
+      throw HttpException("Falha interna no servidor!");
     }
   }
 
@@ -44,21 +41,17 @@ class PessoaProvider extends ApiConnect {
       if (response.statusCode == 201) {
         return;
       } else if (response.statusCode == 401) {
-        print(response.statusText);
-        return Future.error("UNAUTHORIZED_USER");
+        throw UnauthorizedException();
       } else {
-        print(response.statusText);
-        return Future.error("SERVER_ERROR");
+        throw HttpException(
+            "Falha interna no servidor! Code: ${response.statusCode}");
       }
     } on SocketException catch (e) {
-      print(e.toString());
-      return Future.error("TIMEOUT_ERROR");
+      throw TimeoutException("Tempo de conexão excedido! ${e.message}");
     } on TimeoutException catch (e) {
-      print(e.toString());
-      return Future.error("TIMEOUT_ERROR");
+      throw TimeoutException("Tempo de conexão excedido! ${e.message}");
     } catch (err) {
-      print(err.toString());
-      return Future.error("CONNECTION_ERROR");
+      throw HttpException("Falha interna no servidor! ${err.toString()}");
     }
   }
 }

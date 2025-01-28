@@ -111,7 +111,7 @@ class HomePage extends GetView<HomeController> {
                   if (controller.errorAtSeach.isNotEmpty) {
                     return Padding(
                       padding: const EdgeInsets.all(35.0),
-                      child: Text("Ops! Tente novamente!"),
+                      child: Text("Ops! Tente novamente! ${controller.errorAtSeach}"),
                     );
                   }
                   if (controller.isLoading) {
