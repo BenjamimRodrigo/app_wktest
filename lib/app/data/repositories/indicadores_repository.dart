@@ -1,3 +1,4 @@
+import 'package:app_wktest/app/data/dtos/obesidade_por_genero_dto.dart';
 import 'package:app_wktest/app/data/providers/indicadores_provider.dart';
 
 class IndicadoresRepository {
@@ -13,7 +14,7 @@ class IndicadoresRepository {
     return api.imcMedioFaixaEtaria();
   }
 
-  Future percentualObesosPorGenero() {
+  Future<List<ResponseObesidadePorGeneroDTO>> percentualObesosPorGenero() {
     return api.percentualObesosPorGenero();
   }
 

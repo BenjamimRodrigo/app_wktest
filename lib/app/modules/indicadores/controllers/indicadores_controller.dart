@@ -7,15 +7,19 @@ class IndicadoresController extends GetxController {
   IndicadoresController(this.repository);
 
   final _pessoasPorUF = <ResponsePessoasPorUFDTO>[].obs;
+  final _percentObedidadeMasculina = 0.0.obs;
+  final _percentObedidadeFeminina = 0.0.obs;
 
   List<ResponsePessoasPorUFDTO> get pessoasPorUF => _pessoasPorUF;
+  double get percentObedidadeMasculina => _percentObedidadeMasculina.value;
+  double get percentObedidadeFeminina => _percentObedidadeFeminina.value;
 
   @override
   void onInit() {
     loadPessoasPorUF();
-    /* loadImcMedioFaixaEtaria();
+    //loadImcMedioFaixaEtaria();
     loadPercentualObesosPorGenero();
-    loadMediaIdadePorTipoSanguineo();
+    /*loadMediaIdadePorTipoSanguineo();
     loadQtdDoadoresPorTipoSanguineo(); */
     super.onInit();
   }
@@ -34,7 +38,9 @@ class IndicadoresController extends GetxController {
 
   void loadPercentualObesosPorGenero() {
     repository.percentualObesosPorGenero().then((response) {
-      print(response);
+      if(response.isEmpty) return;
+      _percentObedidadeMasculina.value = response.where((e) => e.genero == 'MASCULINO').first.percentual;
+      _percentObedidadeFeminina.value = response.where((e) => e.genero == 'FEMININO').first.percentual;
     });
   }
 
