@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
-class IdadePorTipoSanguineoWidget extends GetView<IndicadoresController> {
+class QtdPorTipoSanguineoWidget extends GetView<IndicadoresController> {
   @override
   Widget build(BuildContext context) {
-    final items = controller.idadePorTipoSanguineo;
+    final items = controller.qtdPorTipoSanguineo;
     return Obx(() {
       if (items.isEmpty) {
         return CircularProgressIndicator(color: SECONDARY_COLOR);
@@ -18,9 +18,10 @@ class IdadePorTipoSanguineoWidget extends GetView<IndicadoresController> {
         itemCount: items.length,
         itemBuilder: (context, index) {
           final item = items[index];
+          int totalGeral = items.fold(0, (sum, e) => sum + e.totalDoadores);
           return LinearPercentIndicator(
             lineHeight: 12.0,
-            percent: item.idadeMedia / 130,
+            percent: item.totalDoadores / totalGeral,
             leading: SizedBox(
               width: 60,
               child: Padding(
@@ -33,10 +34,11 @@ class IdadePorTipoSanguineoWidget extends GetView<IndicadoresController> {
                 ),
               ),
             ),
+            alignment: MainAxisAlignment.center,
             trailing: Padding(
               padding: const EdgeInsets.only(right: 20.0),
               child: Text(
-                "${item.idadeMedia.round()} anos",
+                "${item.totalDoadores} pessoas",
                 style: const TextStyle(fontSize: 14.0),
               ),
             ),

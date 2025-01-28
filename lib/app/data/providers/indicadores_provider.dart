@@ -4,6 +4,7 @@ import 'package:app_wktest/app/data/dtos/idade_por_tipo_sanguineo_dto.dart';
 import 'package:app_wktest/app/data/dtos/imc_por_faixa_etaria_dto.dart';
 import 'package:app_wktest/app/data/dtos/obesidade_por_genero_dto.dart';
 import 'package:app_wktest/app/data/dtos/pessoas_por_uf_dto.dart';
+import 'package:app_wktest/app/data/dtos/qtd_por_tipo_sanguineo_dto.dart';
 import 'package:app_wktest/app/data/providers/api_provider.dart';
 import 'package:get/get_connect/http/src/exceptions/exceptions.dart';
 
@@ -108,7 +109,10 @@ class IndicadoresProvider extends ApiConnect {
     try {
       final response = await get("/indicadores/qtdDoadoresPorTipoSanguineo");
       if (response.statusCode == 200) {
-        return response.body;
+        List<ResponseQtdPorTipoSanguineoDTO> list = (response.body as List)
+            .map((item) => ResponseQtdPorTipoSanguineoDTO.fromJson(item))
+            .toList();
+        return list;
       } else if (response.statusCode == 401) {
         throw UnauthorizedException();
       } else {

@@ -3,6 +3,7 @@ import 'package:app_wktest/app/modules/indicadores/widgets/idade_por_tipo_sangui
 import 'package:app_wktest/app/modules/indicadores/widgets/imc_por_faixa_etaria_widget.dart';
 import 'package:app_wktest/app/modules/indicadores/widgets/obesidade_por_genero_widget.dart';
 import 'package:app_wktest/app/modules/indicadores/widgets/pessoas_por_uf_widget.dart';
+import 'package:app_wktest/app/modules/indicadores/widgets/qtd_por_tipo_sanguineo_widget.dart';
 import 'package:app_wktest/app/themes/colors_palete.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -63,6 +64,8 @@ class IndicadoresPage extends GetView<IndicadoresController> {
                   style: titleStyle,
                 ),
               ),
+              QtdPorTipoSanguineoWidget(),
+              const SizedBox(height: 20),
             ],
           ),
         ),
