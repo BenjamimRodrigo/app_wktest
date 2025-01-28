@@ -58,6 +58,7 @@ class HomeController extends GetxController {
         pessoas.addAll(results.list);
       }
       pessoas.refresh();
+      _loadMore.value = results.totalElements > pessoas.length;
     }).catchError((error) {
       _isLoadingMore.value = false;
       _errorAtSearch.value = error.toString();

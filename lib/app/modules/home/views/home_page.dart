@@ -1,5 +1,7 @@
 import 'package:app_wktest/app/data/models/pessoa_model.dart';
 import 'package:app_wktest/app/modules/home/controllers/home_controller.dart';
+import 'package:app_wktest/app/modules/indicadores/bindings/indicadores_binding.dart';
+import 'package:app_wktest/app/modules/indicadores/views/indicadores_page.dart';
 import 'package:app_wktest/app/themes/colors_palete.dart';
 import 'package:app_wktest/app/themes/icons_app.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +12,24 @@ class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(child: Text('WK Test - Banco de sangue', style: TextStyle(color: PRIMARY_COLOR),))),
+      appBar: AppBar(
+        title: Center(
+          child: Text(
+            'Base de doadores',
+            style: TextStyle(color: PRIMARY_COLOR),
+          ),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.insert_chart_outlined_outlined,
+              color: SECONDARY_COLOR,
+              size: 30,
+            ),
+            onPressed: () => Get.to(() => IndicadoresPage(), binding: IndicadoresBinding()),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -29,9 +48,10 @@ class HomePage extends GetView<HomeController> {
                 keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.search,
                 textCapitalization: TextCapitalization.sentences,
+                textAlignVertical: TextAlignVertical.center,
                 focusNode: controller.focusSearch,
                 decoration: InputDecoration(
-                  hintText: "Pesquise as pessoas",
+                  hintText: "Pesquise aqui...",
                   prefixIcon: Icon(Icons.search),
                   suffixIcon: Obx(
                     () => controller.isFocused
@@ -103,11 +123,14 @@ class HomePage extends GetView<HomeController> {
                       ],
                     );
                   }
-                  if (controller.pessoas.isEmpty && controller.textController.text.isEmpty) {
+                  if (controller.pessoas.isEmpty &&
+                      controller.textController.text.isEmpty) {
                     return Center(
                       child: ElevatedButton(
                         onPressed: () => controller.enviarDadosLocais(),
-                        child: Text("Enviar dados locais", ),
+                        child: Text(
+                          "Enviar dados locais",
+                        ),
                       ),
                     );
                   }
@@ -124,7 +147,8 @@ class HomePage extends GetView<HomeController> {
                                 onPressed: controller.isLoadingMore
                                     ? null
                                     : () => controller.pesquisar(
-                                        pesquisa: controller.textController.text,
+                                        pesquisa:
+                                            controller.textController.text,
                                         page: ++controller.currentPage),
                                 child: controller.isLoadingMore
                                     ? SizedBox(
@@ -132,7 +156,12 @@ class HomePage extends GetView<HomeController> {
                                         width: 18,
                                         child: CircularProgressIndicator(
                                             color: SECONDARY_COLOR))
-                                    : Text("Carregar mais", style: TextStyle(color: SECONDARY_COLOR, fontSize: 16),),
+                                    : Text(
+                                        "Carregar mais",
+                                        style: TextStyle(
+                                            color: SECONDARY_COLOR,
+                                            fontSize: 16),
+                                      ),
                               ),
                             );
                           }
@@ -185,9 +214,7 @@ class HomePage extends GetView<HomeController> {
               Text(
                 pessoa.atributosFisicos!.tipoSanguineo!,
                 style: TextStyle(
-                    fontSize: 16,
-                    color: SECONDARY_COLOR,
-                    fontFamily: 'Nunito'),
+                    fontSize: 16, color: SECONDARY_COLOR, fontFamily: 'Nunito'),
               ),
             ],
           ),
