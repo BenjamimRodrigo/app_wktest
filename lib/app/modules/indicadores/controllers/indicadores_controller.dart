@@ -1,5 +1,4 @@
-import 'dart:ffi';
-
+import 'package:app_wktest/app/data/dtos/pessoas_por_uf_dto.dart';
 import 'package:app_wktest/app/data/repositories/indicadores_repository.dart';
 import 'package:get/get.dart';
 
@@ -7,9 +6,9 @@ class IndicadoresController extends GetxController {
   final IndicadoresRepository repository;
   IndicadoresController(this.repository);
 
-  final _pessoasPorUF = [].obs;
+  final _pessoasPorUF = <ResponsePessoasPorUFDTO>[].obs;
 
-  List get pessoasPorUF => _pessoasPorUF;
+  List<ResponsePessoasPorUFDTO> get pessoasPorUF => _pessoasPorUF;
 
   @override
   void onInit() {
