@@ -1,4 +1,5 @@
 import 'package:app_wktest/app/modules/indicadores/controllers/indicadores_controller.dart';
+import 'package:app_wktest/app/modules/indicadores/widgets/idade_por_tipo_sanguineo_widget.dart';
 import 'package:app_wktest/app/modules/indicadores/widgets/imc_por_faixa_etaria_widget.dart';
 import 'package:app_wktest/app/modules/indicadores/widgets/obesidade_por_genero_widget.dart';
 import 'package:app_wktest/app/modules/indicadores/widgets/pessoas_por_uf_widget.dart';
@@ -31,7 +32,7 @@ class IndicadoresPage extends GetView<IndicadoresController> {
                 ),
               ),
               PessoasPorUFWidget(),
-              const SizedBox(height: 15),
+              const SizedBox(height: 20),
               Center(
                 child: Text(
                   "IMC médio em cada faixa de idade",
@@ -39,7 +40,7 @@ class IndicadoresPage extends GetView<IndicadoresController> {
                 ),
               ),
               IMCPorFaixaEtariaWidget(),
-              const SizedBox(height: 15),
+              const SizedBox(height: 20),
               Center(
                 child: Text(
                   "Obesidade entre os homens e as mulheres",
@@ -47,14 +48,15 @@ class IndicadoresPage extends GetView<IndicadoresController> {
                 ),
               ),
               ObesidadePorGeneroWidget(),
-              const SizedBox(height: 15),
+              const SizedBox(height: 20),
               Center(
                 child: Text(
                   "Média de idade para cada tipo sanguíneo",
                   style: titleStyle,
                 ),
               ),
-              const SizedBox(height: 15),
+              IdadePorTipoSanguineoWidget(),
+              const SizedBox(height: 20),
               Center(
                 child: Text(
                   "Possíveis doadores para cada tipo sanguíneo",

@@ -1,3 +1,4 @@
+import 'package:app_wktest/app/data/dtos/idade_por_tipo_sanguineo_dto.dart';
 import 'package:app_wktest/app/data/dtos/imc_por_faixa_etaria_dto.dart';
 import 'package:app_wktest/app/data/dtos/pessoas_por_uf_dto.dart';
 import 'package:app_wktest/app/data/repositories/indicadores_repository.dart';
@@ -9,11 +10,13 @@ class IndicadoresController extends GetxController {
 
   final _pessoasPorUF = <ResponsePessoasPorUFDTO>[].obs;
   final _imcPorFaixaEtaria = <ResponseIMCPorFaixaEtariaDTO>[].obs;
+  final _idadePorTipoSanguineo = <ResponseIdadePorTipoSanguineoDTO>[].obs;
   final _percentObedidadeMasculina = 0.0.obs;
   final _percentObedidadeFeminina = 0.0.obs;
 
   List<ResponsePessoasPorUFDTO> get pessoasPorUF => _pessoasPorUF;
   List<ResponseIMCPorFaixaEtariaDTO> get imcPorFaixaEtaria => _imcPorFaixaEtaria;
+  List<ResponseIdadePorTipoSanguineoDTO> get idadePorTipoSanguineo => _idadePorTipoSanguineo;
   double get percentObedidadeMasculina => _percentObedidadeMasculina.value;
   double get percentObedidadeFeminina => _percentObedidadeFeminina.value;
 
@@ -22,7 +25,7 @@ class IndicadoresController extends GetxController {
     loadPessoasPorUF();
     loadImcMedioFaixaEtaria();
     loadPercentualObesosPorGenero();
-    //loadMediaIdadePorTipoSanguineo();
+    loadMediaIdadePorTipoSanguineo();
     //loadQtdDoadoresPorTipoSanguineo();
     super.onInit();
   }
@@ -49,7 +52,7 @@ class IndicadoresController extends GetxController {
 
   void loadMediaIdadePorTipoSanguineo() {
     repository.mediaIdadePorTipoSanguineo().then((response) {
-      print(response);
+      _idadePorTipoSanguineo.addAll(response);
     });
   }
 

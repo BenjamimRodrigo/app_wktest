@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:app_wktest/app/data/dtos/idade_por_tipo_sanguineo_dto.dart';
 import 'package:app_wktest/app/data/dtos/imc_por_faixa_etaria_dto.dart';
 import 'package:app_wktest/app/data/dtos/obesidade_por_genero_dto.dart';
 import 'package:app_wktest/app/data/dtos/pessoas_por_uf_dto.dart';
@@ -84,7 +85,10 @@ class IndicadoresProvider extends ApiConnect {
     try {
       final response = await get("/indicadores/mediaIdadePorTipoSanguineo");
       if (response.statusCode == 200) {
-        return response.body;
+        List<ResponseIdadePorTipoSanguineoDTO> list = (response.body as List)
+            .map((item) => ResponseIdadePorTipoSanguineoDTO.fromJson(item))
+            .toList();
+        return list;
       } else if (response.statusCode == 401) {
         throw UnauthorizedException();
       } else {
