@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:app_wktest/app/data/dtos/imc_por_faixa_etaria_dto.dart';
 import 'package:app_wktest/app/data/dtos/obesidade_por_genero_dto.dart';
 import 'package:app_wktest/app/data/dtos/pessoas_por_uf_dto.dart';
 import 'package:app_wktest/app/data/providers/api_provider.dart';
@@ -13,13 +14,14 @@ class IndicadoresProvider extends ApiConnect {
       final response = await get("/indicadores/pessoasPorUF");
       if (response.statusCode == 200) {
         List<ResponsePessoasPorUFDTO> pessoas = (response.body as List)
-          .map((item) => ResponsePessoasPorUFDTO.fromJson(item))
-          .toList();
+            .map((item) => ResponsePessoasPorUFDTO.fromJson(item))
+            .toList();
         return pessoas;
       } else if (response.statusCode == 401) {
         throw UnauthorizedException();
       } else {
-        throw HttpException("Falha interna no servidor! Code: ${response.statusCode}");
+        throw HttpException(
+            "Falha interna no servidor! Code: ${response.statusCode}");
       }
     } on SocketException catch (e) {
       throw TimeoutException("Tempo de conexão excedido! ${e.message}");
@@ -30,15 +32,19 @@ class IndicadoresProvider extends ApiConnect {
     }
   }
 
-  Future imcMedioFaixaEtaria() async {
+  Future<List<ResponseIMCPorFaixaEtariaDTO>> imcMedioFaixaEtaria() async {
     try {
       final response = await get("/indicadores/imcMedioFaixaEtaria");
       if (response.statusCode == 200) {
-        return response.body;
+        List<ResponseIMCPorFaixaEtariaDTO> lista = (response.body as List)
+            .map((item) => ResponseIMCPorFaixaEtariaDTO.fromJson(item))
+            .toList();
+        return lista;
       } else if (response.statusCode == 401) {
         throw UnauthorizedException();
       } else {
-        throw HttpException("Falha interna no servidor! Code: ${response.statusCode}");
+        throw HttpException(
+            "Falha interna no servidor! Code: ${response.statusCode}");
       }
     } on SocketException catch (e) {
       throw TimeoutException("Tempo de conexão excedido! ${e.message}");
@@ -49,18 +55,21 @@ class IndicadoresProvider extends ApiConnect {
     }
   }
 
-  Future<List<ResponseObesidadePorGeneroDTO>> percentualObesosPorGenero() async {
+  Future<List<ResponseObesidadePorGeneroDTO>>
+      percentualObesosPorGenero() async {
     try {
       final response = await get("/indicadores/percentualObesosPorGenero");
       if (response.statusCode == 200) {
-        List<ResponseObesidadePorGeneroDTO> percentuais = (response.body as List)
-          .map((item) => ResponseObesidadePorGeneroDTO.fromJson(item))
-          .toList();
+        List<ResponseObesidadePorGeneroDTO> percentuais =
+            (response.body as List)
+                .map((item) => ResponseObesidadePorGeneroDTO.fromJson(item))
+                .toList();
         return percentuais;
       } else if (response.statusCode == 401) {
         throw UnauthorizedException();
       } else {
-        throw HttpException("Falha interna no servidor! Code: ${response.statusCode}");
+        throw HttpException(
+            "Falha interna no servidor! Code: ${response.statusCode}");
       }
     } on SocketException catch (e) {
       throw TimeoutException("Tempo de conexão excedido! ${e.message}");
@@ -79,7 +88,8 @@ class IndicadoresProvider extends ApiConnect {
       } else if (response.statusCode == 401) {
         throw UnauthorizedException();
       } else {
-        throw HttpException("Falha interna no servidor! Code: ${response.statusCode}");
+        throw HttpException(
+            "Falha interna no servidor! Code: ${response.statusCode}");
       }
     } on SocketException catch (e) {
       throw TimeoutException("Tempo de conexão excedido! ${e.message}");
@@ -98,7 +108,8 @@ class IndicadoresProvider extends ApiConnect {
       } else if (response.statusCode == 401) {
         throw UnauthorizedException();
       } else {
-        throw HttpException("Falha interna no servidor! Code: ${response.statusCode}");
+        throw HttpException(
+            "Falha interna no servidor! Code: ${response.statusCode}");
       }
     } on SocketException catch (e) {
       throw TimeoutException("Tempo de conexão excedido! ${e.message}");

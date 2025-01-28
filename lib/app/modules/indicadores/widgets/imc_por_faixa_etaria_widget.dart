@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
-class PessoasPorUFWidget extends GetView<IndicadoresController> {
+class IMCPorFaixaEtariaWidget extends GetView<IndicadoresController> {
   @override
   Widget build(BuildContext context) {
-    final items = controller.pessoasPorUF;
+    final items = controller.imcPorFaixaEtaria;
     return Obx(() {
       if(items.isEmpty) return CircularProgressIndicator(color: SECONDARY_COLOR);
       return ListView.builder(
@@ -16,22 +16,32 @@ class PessoasPorUFWidget extends GetView<IndicadoresController> {
         itemCount: items.length,
         itemBuilder: (context, index) {
           final item = items[index];
-          int totalGeral = items.fold(0, (sum, e) => sum + e.total);
+          final faixaEtaria =
+              "${item.faixaEtaria - 9} à ${item.faixaEtaria} anos";
           return LinearPercentIndicator(
             lineHeight: 12.0,
-            percent: item.total / totalGeral,
+            percent: item.imcMedio / 100,
             leading: Padding(
               padding: const EdgeInsets.only(left: 20.0),
-              child: Image(image: AssetImage(item.bandeira), width: 22),
+              child: Text(faixaEtaria),
             ),
             trailing: Padding(
               padding: const EdgeInsets.only(right: 20.0),
-              child: Text("${item.estado} :: ${item.total} pessoas",
-                  style: const TextStyle(fontSize: 14.0)),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.bloodtype_rounded,
+                    size: 14,
+                    color: SECONDARY_COLOR,
+                  ),
+                  Text("${item.imcMedio}",
+                      style: const TextStyle(fontSize: 14.0)),
+                ],
+              ),
             ),
             animation: true,
-            animationDuration: 1000,
-            barRadius: const Radius.circular(30.0),
+            animationDuration: 500,
+            barRadius: const Radius.circular(2.0),
             progressColor: SECONDARY_COLOR,
           );
         },

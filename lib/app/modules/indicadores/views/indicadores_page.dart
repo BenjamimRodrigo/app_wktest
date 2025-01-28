@@ -1,4 +1,5 @@
 import 'package:app_wktest/app/modules/indicadores/controllers/indicadores_controller.dart';
+import 'package:app_wktest/app/modules/indicadores/widgets/imc_por_faixa_etaria_widget.dart';
 import 'package:app_wktest/app/modules/indicadores/widgets/obesidade_por_genero_widget.dart';
 import 'package:app_wktest/app/modules/indicadores/widgets/pessoas_por_uf_widget.dart';
 import 'package:app_wktest/app/themes/colors_palete.dart';
@@ -37,6 +38,7 @@ class IndicadoresPage extends GetView<IndicadoresController> {
                   style: titleStyle,
                 ),
               ),
+              IMCPorFaixaEtariaWidget(),
               const SizedBox(height: 15),
               Center(
                 child: Text(
